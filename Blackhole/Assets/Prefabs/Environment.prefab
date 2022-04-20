@@ -90,7 +90,7 @@ MeshCollider:
   serializedVersion: 4
   m_Convex: 1
   m_CookingOptions: 30
-  m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &1672636853
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -401,8 +401,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b158598d4cbad384a8cdc01604d4b9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FloorScale: 2
   FloorCollider2D: {fileID: 1883260301282696645}
+  FloorScale: 20
   _cutFloorMeshCollider: {fileID: 1883260301526392212}
   _floorRenderGameObject: {fileID: 1883260301772014714}
   _floorLayerGameObject: {fileID: 1201448111}

@@ -15,32 +15,26 @@ public class PlayerController : MonoBehaviour
     [Tooltip("Speed of the hole controller")]
     public float MoveSpeed = 2.0f;
 
+    private const float _holeScale2D = 0.5f;
+
     private Vector3 _moveDirection;
     private int _layerMask;
     private Vector3 _desiredLocalScale;
 
-    private const float _holeScale2D = 0.5f;
-
     private HoleGenerator _holeGenerator;
     private CharacterController _characterController;
-    private GameObject _mainCameraObject;
     private Camera _mainCamera;
 
     private void Awake()
     {
         _holeGenerator = GetComponent<HoleGenerator>();
         _characterController = GetComponent<CharacterController>();
-
-        // get a reference to our main camera
-        if (_mainCameraObject == null)
-        {
-            _mainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
-            _mainCamera = _mainCameraObject.GetComponent<Camera>();
-        }
     }
 
     private void Start()
     {
+        _mainCamera = GameManager.Instance.MainCamera;
+
         //used to raycast from camera to floor
         _layerMask = LayerMask.GetMask("Floor Raycast");
 
@@ -52,13 +46,13 @@ public class PlayerController : MonoBehaviour
     private void Update()
     {
         UpdateLocalScale();
-
-        _holeGenerator.CutHole(transform.position, transform.localScale * _holeScale2D);
     }
 
     private void FixedUpdate()
     {
         Move();
+
+        _holeGenerator.CutHole(transform.position, transform.localScale * _holeScale2D);
     }
 
     private void Move()

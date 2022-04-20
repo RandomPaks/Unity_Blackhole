@@ -3,22 +3,39 @@ using UnityEngine;
 public class CameraFollowHole : MonoBehaviour
 {
     [Tooltip("Offset of the camera position")]
-    public Vector3 cameraOffsetPosition;
+    public Vector3 CameraOffsetPosition;
+    [Tooltip("How zoomed in the camera is initially")]
+    public float ZoomLevel = 0;
+    [Tooltip("How far the camera zooms in/out")]
+    public float ZoomLevelIncrement = -1f;
+    [Tooltip("How fast it takes for the camera to move")]
+    public float ZoomSpeed = 5.0f;
 
-    private GameObject _playerObject;
-    private PlayerController _playerController;
+    private float _zoomDesiredLevel;
 
-    private void Awake()
+    private PlayerController _player;
+
+    private void Start()
     {
-        if (_playerObject == null)
-        {
-            _playerObject = GameObject.FindGameObjectWithTag("Player");
-            _playerController = _playerObject.GetComponent<PlayerController>();
-        }
+        _player = GameManager.Instance.Player;
+
+        _zoomDesiredLevel = ZoomLevel;
     }
 
     private void LateUpdate()
     {
-        transform.position = _playerObject.transform.position + cameraOffsetPosition;
+        UpdatePosition();
+    }
+
+    private void UpdatePosition()
+    {
+        ZoomLevel = Mathf.MoveTowards(ZoomLevel, _zoomDesiredLevel, ZoomSpeed * Time.deltaTime);
+
+        transform.position = _player.transform.position + CameraOffsetPosition + (transform.forward * ZoomLevel);
+    }
+
+    public void AddZoomLevel()
+    {
+        _zoomDesiredLevel += ZoomLevelIncrement;
     }
 }

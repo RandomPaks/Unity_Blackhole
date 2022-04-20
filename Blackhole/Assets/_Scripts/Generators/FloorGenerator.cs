@@ -9,6 +9,7 @@ public class FloorGenerator : MonoBehaviour
 
     [Header("Floor Settings")]
     [Tooltip("Size of the floor")]
+    [Range(1, 100)]
     public float FloorScale = 1f;
 
     [Header("For 3D Floor")]
@@ -53,14 +54,14 @@ public class FloorGenerator : MonoBehaviour
             _floorLayerGameObject.transform.localScale.y * FloorScale * 2,
             1);
 
-
+        //2x in any case objects go out of bounds and will get destroyed
         _deathFloorGameObject.transform.localScale = new Vector3(
-            _floorLayerGameObject.transform.localScale.x * FloorScale,
-            _floorLayerGameObject.transform.localScale.y * FloorScale,
+            _deathFloorGameObject.transform.localScale.x * FloorScale * 2,
+            _deathFloorGameObject.transform.localScale.y * FloorScale * 2,
             1);
     }
 
-    private void Update()
+    private void FixedUpdate()
     {
         GenerateFloorMeshCollider();
     }
