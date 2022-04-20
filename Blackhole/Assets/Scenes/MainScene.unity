@@ -562,7 +562,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5932431114719463714, guid: 595a9327907d83342a928d9212620e64, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5932431114719463715, guid: 595a9327907d83342a928d9212620e64, type: 3}
       propertyPath: _holeCollider2D
@@ -678,6 +678,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1672636852, guid: 15e854628fa7be84f9b728b6129691da, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1883260302879339245, guid: 15e854628fa7be84f9b728b6129691da, type: 3}
       propertyPath: m_Name
       value: Environment
