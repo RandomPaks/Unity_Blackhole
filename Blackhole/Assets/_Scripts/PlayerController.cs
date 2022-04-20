@@ -36,7 +36,7 @@ public class PlayerController : MonoBehaviour
         _mainCamera = GameManager.Instance.MainCamera;
 
         //used to raycast from camera to floor
-        _layerMask = LayerMask.GetMask("Floor Raycast");
+        _layerMask = LayerMask.GetMask("Ground Zero");
 
         //sets the size of the initial hole
         transform.localScale = new Vector3(transform.localScale.x * HoleScale, 0.01f, transform.localScale.z * HoleScale);

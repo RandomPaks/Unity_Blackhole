@@ -5,23 +5,27 @@ public class DroppableObject : MonoBehaviour
     [Tooltip("How much score the object gives")]
     public int Score;
 
+    private Collider _collider;
+
     private void Awake()
     {
-        //GetComponent<Rigidbody>().Sleep();
+        _collider = GetComponent<Collider>();
     }
 
-    private void Update()
+    private void Start()
     {
-        Debug.Log(GetComponent<Rigidbody>().IsSleeping());
+        Physics.IgnoreCollision(_collider, FloorGenerator.Instance.CutFloorMeshCollider, true);
     }
 
     private void OnTriggerEnter(Collider other)
     {
-
+        Physics.IgnoreCollision(_collider, FloorGenerator.Instance.GroundZeroCollider, true);
+        Physics.IgnoreCollision(_collider, FloorGenerator.Instance.CutFloorMeshCollider, false);
     }
 
     private void OnTriggerExit(Collider other)
     {
-        
+        Physics.IgnoreCollision(_collider, FloorGenerator.Instance.GroundZeroCollider, false);
+        Physics.IgnoreCollision(_collider, FloorGenerator.Instance.CutFloorMeshCollider, true);
     }
 }

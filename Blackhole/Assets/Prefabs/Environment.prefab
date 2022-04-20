@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1201448112}
   - component: {fileID: 1201448113}
   m_Layer: 6
-  m_Name: FloorRaycastLayer
+  m_Name: GroundZero
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -118,7 +118,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1883260301282696646
 Transform:
@@ -178,7 +178,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1883260301526392219
 Transform:
@@ -304,7 +304,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1883260302876370114
 Transform:
@@ -367,7 +367,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1883260302879339246
 Transform:
@@ -402,10 +402,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FloorCollider2D: {fileID: 1883260301282696645}
-  FloorScale: 20
+  FloorScale: 50
   _cutFloorMeshCollider: {fileID: 1883260301526392212}
   _floorRenderGameObject: {fileID: 1883260301772014714}
-  _floorLayerGameObject: {fileID: 1201448111}
+  _groundZeroGameObject: {fileID: 1201448111}
   _deathFloorGameObject: {fileID: 1672636850}
 --- !u!114 &8196801389047689536
 MonoBehaviour:

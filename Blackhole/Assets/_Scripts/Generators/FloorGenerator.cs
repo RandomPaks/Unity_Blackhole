@@ -15,15 +15,19 @@ public class FloorGenerator : MonoBehaviour
     [Header("For 3D Floor")]
     [Tooltip("The new mesh collider with holes on the floor")]
     [SerializeField] private MeshCollider _cutFloorMeshCollider;
-    [Tooltip("The floor gameobject used to render the floor (to be scaled with the cut floor mesh collider)")]
+    [Tooltip("Used to render the floor (to be scaled with the cut floor mesh collider)")]
     [SerializeField] private GameObject _floorRenderGameObject;
-    [Tooltip("The floor layer gameobject used for collecting raycasts (ensures that out of bound clicks register)")]
-    [SerializeField] private GameObject _floorLayerGameObject;
-    [Tooltip("The death floor gameobject used to destroy collected objects (to be scaled with the cut floor mesh collider)")]
+    [Tooltip("Used for collecting raycasts and optimization (ensures that out of bound clicks register)")]
+    [SerializeField] private GameObject _groundZeroGameObject;
+    [Tooltip("Used to destroy collected objects (to be scaled with the cut floor mesh collider)")]
     [SerializeField] private GameObject _deathFloorGameObject;
 
     //used for generating a new mesh when GenerateMeshCollider is called
     private Mesh _generatedMesh;
+    private Collider _groundZeroCollider;
+
+    public Collider GroundZeroCollider => _groundZeroCollider;
+    public Collider CutFloorMeshCollider => _cutFloorMeshCollider;
 
     private void Awake()
     {
@@ -31,6 +35,8 @@ public class FloorGenerator : MonoBehaviour
             Destroy(gameObject);
         else
             Instance = this;
+
+        _groundZeroCollider = _groundZeroGameObject.GetComponent<Collider>();
     }
 
     private void Start()
@@ -49,9 +55,9 @@ public class FloorGenerator : MonoBehaviour
         _floorRenderGameObject.transform.localScale *= FloorScale;
 
         //2x scaled to ensure that out of bound clicks for raycasts register
-        _floorLayerGameObject.transform.localScale = new Vector3(
-            _floorLayerGameObject.transform.localScale.x * FloorScale * 2,
-            _floorLayerGameObject.transform.localScale.y * FloorScale * 2,
+        _groundZeroGameObject.transform.localScale = new Vector3(
+            _groundZeroGameObject.transform.localScale.x * FloorScale * 2,
+            _groundZeroGameObject.transform.localScale.y * FloorScale * 2,
             1);
 
         //2x in any case objects go out of bounds and will get destroyed
