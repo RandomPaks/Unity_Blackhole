@@ -16,7 +16,9 @@ public class FloorGenerator : MonoBehaviour
     [Tooltip("The new mesh collider with holes on the floor")]
     [SerializeField] private MeshCollider _cutFloorMeshCollider;
     [Tooltip("The floor gameobject used to render the floor (used to scale with the cut floor mesh collider)")]
-    [SerializeField] private GameObject _floorGameObject;
+    [SerializeField] private GameObject _floorRenderGameObject;
+    [Tooltip("The floor layer gameobject used for collecting raycasts (ensures that out of bound clicks register)")]
+    [SerializeField] private GameObject _floorLayerGameObject;
 
     //used for generating a new mesh when GenerateMeshCollider is called
     private Mesh _generatedMesh;
@@ -41,10 +43,13 @@ public class FloorGenerator : MonoBehaviour
         }
         FloorCollider2D.SetPath(0, points);
 
-        //1.5x scaled to ensure that out of bound clicks for raycasts register
-        _floorGameObject.transform.localScale = new Vector3(
-            _floorGameObject.transform.localScale.x * FloorScale * 1.5f, 
-            _floorGameObject.transform.localScale.y *  FloorScale * 1.5f, 
+        //scaled floor render
+        _floorRenderGameObject.transform.localScale *= FloorScale;
+
+        //2x scaled to ensure that out of bound clicks for raycasts register
+        _floorLayerGameObject.transform.localScale = new Vector3(
+            _floorLayerGameObject.transform.localScale.x * FloorScale * 2,
+            _floorLayerGameObject.transform.localScale.y * FloorScale * 2,
             1);
     }
 

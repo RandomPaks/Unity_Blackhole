@@ -21,7 +21,7 @@ public class WallGenerator : MonoBehaviour
 
     private void CreateWall(float xPos, float zPos, Quaternion rot)
     {
-        GameObject temp = Instantiate(_wallGameObject, new Vector3(xPos, 1, zPos), rot, gameObject.transform);
-        temp.transform.localScale = new Vector3(FloorGenerator.Instance.FloorScale * 10, 2, 1);
+        GameObject temp = Instantiate(_wallGameObject, new Vector3(xPos, 0.5f, zPos), rot, gameObject.transform);
+        temp.transform.localScale = new Vector3(FloorGenerator.Instance.FloorScale * 10, 1, 0.1f);
     }
 }
