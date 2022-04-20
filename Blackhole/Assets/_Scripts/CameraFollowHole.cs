@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollowHole : MonoBehaviour
@@ -7,20 +5,20 @@ public class CameraFollowHole : MonoBehaviour
     [Tooltip("Offset of the camera position")]
     public Vector3 cameraOffsetPosition;
 
-    private GameObject _holeObject;
-    private HoleController _holeController;
+    private GameObject _playerObject;
+    private PlayerController _playerController;
 
     private void Awake()
     {
-        if (_holeObject == null)
+        if (_playerObject == null)
         {
-            _holeObject = GameObject.FindGameObjectWithTag("Player");
-            _holeController = _holeObject.GetComponent<HoleController>();
+            _playerObject = GameObject.FindGameObjectWithTag("Player");
+            _playerController = _playerObject.GetComponent<PlayerController>();
         }
     }
 
     private void LateUpdate()
     {
-        transform.position = _holeObject.transform.position + cameraOffsetPosition;
+        transform.position = _playerObject.transform.position + cameraOffsetPosition;
     }
 }

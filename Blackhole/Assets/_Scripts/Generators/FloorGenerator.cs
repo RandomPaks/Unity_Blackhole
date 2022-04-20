@@ -1,25 +1,24 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class FloorGenerator : MonoBehaviour
 {
     public static FloorGenerator Instance { get; private set; }
 
+    [Tooltip("The 2D collider used as reference points for the cut floor mesh")]
+    public PolygonCollider2D FloorCollider2D;
+
     [Header("Floor Settings")]
     [Tooltip("Size of the floor")]
     public float FloorScale = 1f;
-    [Tooltip("The 2D collider used as reference points for the cut floor mesh")]
-    public PolygonCollider2D FloorCollider2D;
 
     [Header("For 3D Floor")]
     [Tooltip("The new mesh collider with holes on the floor")]
     [SerializeField] private MeshCollider _cutFloorMeshCollider;
-    [Tooltip("The floor gameobject used to render the floor (to be scale with the cut floor mesh collider)")]
+    [Tooltip("The floor gameobject used to render the floor (to be scaled with the cut floor mesh collider)")]
     [SerializeField] private GameObject _floorRenderGameObject;
     [Tooltip("The floor layer gameobject used for collecting raycasts (ensures that out of bound clicks register)")]
     [SerializeField] private GameObject _floorLayerGameObject;
-    [Tooltip("The death floor gameobject used to destroy collected objects (to be scale with the cut floor mesh collider)")]
+    [Tooltip("The death floor gameobject used to destroy collected objects (to be scaled with the cut floor mesh collider)")]
     [SerializeField] private GameObject _deathFloorGameObject;
 
     //used for generating a new mesh when GenerateMeshCollider is called
@@ -54,7 +53,11 @@ public class FloorGenerator : MonoBehaviour
             _floorLayerGameObject.transform.localScale.y * FloorScale * 2,
             1);
 
-        _deathFloorGameObject.transform.localScale *= FloorScale;
+
+        _deathFloorGameObject.transform.localScale = new Vector3(
+            _floorLayerGameObject.transform.localScale.x * FloorScale,
+            _floorLayerGameObject.transform.localScale.y * FloorScale,
+            1);
     }
 
     private void Update()

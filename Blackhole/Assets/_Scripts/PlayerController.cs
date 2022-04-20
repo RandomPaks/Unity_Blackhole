@@ -1,21 +1,25 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(HoleGenerator))]
-public class HoleController : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     [Header("Hole Settings")]
-    [Tooltip("Size of the hole")]
-    public float HoleScale = 0.5f;
+    [Tooltip("Size of the starting hole")]
+    public float HoleScale = 1f;
+    [Tooltip("How much the hole will expand when it reaches a certain threshold")]
+    public float HoleScaleMultiplier = 1.1f;
+    [Tooltip("How fast it takes for the hole to scale")]
+    public float HoleScaleTime = 5.0f;
 
     [Header("Movement Settings")]
     [Tooltip("Speed of the hole controller")]
     public float MoveSpeed = 2.0f;
 
-    private bool _isMoving;
     private Vector3 _moveDirection;
     private int _layerMask;
+    private Vector3 _desiredLocalScale;
+
+    private const float _holeScale2D = 0.5f;
 
     private HoleGenerator _holeGenerator;
     private CharacterController _characterController;
@@ -40,14 +44,16 @@ public class HoleController : MonoBehaviour
         //used to raycast from camera to floor
         _layerMask = LayerMask.GetMask("Floor Raycast");
 
-        //cuts the initial hole on the first frame
-        _holeGenerator.CutHole(new Vector2(transform.position.x, transform.position.z), transform.localScale * HoleScale);
+        //sets the size of the initial hole
+        transform.localScale = new Vector3(transform.localScale.x * HoleScale, 0.01f, transform.localScale.z * HoleScale);
+        _desiredLocalScale = transform.localScale;
     }
 
     private void Update()
     {
-        if (_isMoving) 
-            _holeGenerator.CutHole(transform.position, transform.localScale * HoleScale);
+        UpdateLocalScale();
+
+        _holeGenerator.CutHole(transform.position, transform.localScale * _holeScale2D);
     }
 
     private void FixedUpdate()
@@ -57,12 +63,8 @@ public class HoleController : MonoBehaviour
 
     private void Move()
     {
-        _isMoving = false;
-
         if (Input.GetMouseButton(0))
         {
-            _isMoving = true;
-
             RaycastHit hit;
             Ray ray = _mainCamera.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out hit, 999f, _layerMask))
@@ -72,5 +74,18 @@ public class HoleController : MonoBehaviour
 
             _characterController.Move(_moveDirection * MoveSpeed * Time.deltaTime);
         }
+    }
+
+    public void ScaleHoleScale()
+    {
+        _desiredLocalScale = new Vector3(
+            _desiredLocalScale.x * HoleScaleMultiplier, 
+            0.01f,
+            _desiredLocalScale.z * HoleScaleMultiplier);
+    }
+
+    private void UpdateLocalScale()
+    {
+        transform.localScale = Vector3.Lerp(transform.localScale, _desiredLocalScale, HoleScaleTime * Time.deltaTime);
     }
 }
