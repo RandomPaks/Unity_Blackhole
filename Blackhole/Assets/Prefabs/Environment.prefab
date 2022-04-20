@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1201448112}
   - component: {fileID: 1201448113}
   m_Layer: 6
-  m_Name: FloorLayer
+  m_Name: FloorRaycastLayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1883260301526392219}
   - component: {fileID: 1883260301526392212}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: FloorHolesCollider
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -161,7 +161,7 @@ GameObject:
   - component: {fileID: 1883260301772014710}
   - component: {fileID: 1883260301772014709}
   - component: {fileID: 1883260301772014708}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: FloorRender
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -305,7 +305,7 @@ GameObject:
   - component: {fileID: 1883260302879339247}
   - component: {fileID: 8196801389047689536}
   m_Layer: 0
-  m_Name: EnvironmentGenerator
+  m_Name: Environment
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -342,7 +342,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b158598d4cbad384a8cdc01604d4b9bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  FloorScale: 5
+  FloorScale: 2
   FloorCollider2D: {fileID: 1883260301282696645}
   _cutFloorMeshCollider: {fileID: 1883260301526392212}
   _floorRenderGameObject: {fileID: 1883260301772014714}

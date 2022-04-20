@@ -38,7 +38,7 @@ public class HoleController : MonoBehaviour
     private void Start()
     {
         //used to raycast from camera to floor
-        _layerMask = LayerMask.GetMask("Floor");
+        _layerMask = LayerMask.GetMask("Floor Raycast");
 
         //cuts the initial hole on the first frame
         _holeGenerator.CutHole(new Vector2(transform.position.x, transform.position.z), transform.localScale * HoleScale);

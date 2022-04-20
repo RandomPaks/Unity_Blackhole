@@ -11,10 +11,10 @@ TagManager:
   - Player
   - Water
   - UI
-  - Floor
+  - Floor Raycast
   - Wall
-  - 
-  - 
+  - Floor
+  - Droppable
   - 
   - 
   - 
