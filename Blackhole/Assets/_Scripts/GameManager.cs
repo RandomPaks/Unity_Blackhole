@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -7,10 +8,14 @@ public class GameManager : MonoBehaviour
 
     [Tooltip("Total score needed for the hole to get bigger")]
     public int ScoreNeeded = 10;
+    [Tooltip("How many seconds the player gets to play")]
+    public float TimeLeft = 120;
 
     [Header("UI Elements")]
     [Tooltip("Score text of the game")]
     [SerializeField] private Text _scoreText;
+    [Tooltip("Score text of the game")]
+    [SerializeField] private Text _timeText;
 
     private int _scoreCounter;
     private int _totalScore;
@@ -35,6 +40,14 @@ public class GameManager : MonoBehaviour
         _cameraFollowHole = _mainCamera.gameObject.GetComponent<CameraFollowHole>();
     }
 
+    private void Update()
+    {
+        TimeLeft -= Time.deltaTime;
+
+        TimeSpan time = TimeSpan.FromSeconds(TimeLeft);
+        _timeText.text = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
+    }
+
     public void AddScore(int score)
     {
         _totalScore += score;
@@ -43,11 +56,10 @@ public class GameManager : MonoBehaviour
         if (_scoreCounter >= ScoreNeeded)
         {
             _scoreCounter %= ScoreNeeded;
+            _playerController.ScaleHoleScale();
+            _cameraFollowHole.AddZoomLevel();
         }
 
-        _playerController.ScaleHoleScale();
-        _cameraFollowHole.AddZoomLevel();
-
-        _scoreText.text = _totalScore.ToString();
+        _scoreText.text = "Score: " + _totalScore.ToString();
     }
 }
