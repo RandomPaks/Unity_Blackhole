@@ -15,10 +15,12 @@ public class FloorGenerator : MonoBehaviour
     [Header("For 3D Floor")]
     [Tooltip("The new mesh collider with holes on the floor")]
     [SerializeField] private MeshCollider _cutFloorMeshCollider;
-    [Tooltip("The floor gameobject used to render the floor (used to scale with the cut floor mesh collider)")]
+    [Tooltip("The floor gameobject used to render the floor (to be scale with the cut floor mesh collider)")]
     [SerializeField] private GameObject _floorRenderGameObject;
     [Tooltip("The floor layer gameobject used for collecting raycasts (ensures that out of bound clicks register)")]
     [SerializeField] private GameObject _floorLayerGameObject;
+    [Tooltip("The death floor gameobject used to destroy collected objects (to be scale with the cut floor mesh collider)")]
+    [SerializeField] private GameObject _deathFloorGameObject;
 
     //used for generating a new mesh when GenerateMeshCollider is called
     private Mesh _generatedMesh;
@@ -51,6 +53,8 @@ public class FloorGenerator : MonoBehaviour
             _floorLayerGameObject.transform.localScale.x * FloorScale * 2,
             _floorLayerGameObject.transform.localScale.y * FloorScale * 2,
             1);
+
+        _deathFloorGameObject.transform.localScale *= FloorScale;
     }
 
     private void Update()
