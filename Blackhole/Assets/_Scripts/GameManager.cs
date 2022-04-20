@@ -6,8 +6,10 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    [Tooltip("Total score needed for the hole to get bigger")]
+    [Tooltip("Initial total score needed for the hole to get bigger")]
     public int ScoreNeeded = 10;
+    [Tooltip("Multipler for score needed to add how much they need for the next hole expansion")]
+    public int ScoreNeededMultiplier = 5;
     [Tooltip("How many seconds the player gets to play")]
     public float TimeLeft = 120;
 
@@ -55,7 +57,10 @@ public class GameManager : MonoBehaviour
 
         if (_scoreCounter >= ScoreNeeded)
         {
+            ScoreNeeded *= ScoreNeededMultiplier;
             _scoreCounter %= ScoreNeeded;
+            Debug.Log(ScoreNeeded);
+            Debug.Log(_scoreCounter);
             _playerController.ScaleHoleScale();
             _cameraFollowHole.AddZoomLevel();
         }
