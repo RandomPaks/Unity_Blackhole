@@ -22,6 +22,7 @@ public class DroppableGenerator : MonoBehaviour
         for (int i = 0; i < NumObjects; i++)
         {
             float rand = Mathf.InverseLerp(0, NumObjects, Random.Range(0, NumObjects)); //returns a value between 0 and 1
+
             if (rand < 0.5f)
             {
                 _objectType = 0;

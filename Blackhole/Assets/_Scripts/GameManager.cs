@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,9 +19,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private Text _scoreText;
     [Tooltip("Score text of the game")]
     [SerializeField] private Text _timeText;
+    [Tooltip("3D floating text of the game")]
+    [SerializeField] private GameObject _floatingTextObject;
+    [Tooltip("Number of floating texts to pool")]
+    [SerializeField] private int _floatingTextPoolAmount;
 
     private int _scoreCounter;
     private int _totalScore;
+    private List<GameObject> _floatingTextPool;
 
     private PlayerController _playerController;
     private Camera _mainCamera;
@@ -42,6 +48,19 @@ public class GameManager : MonoBehaviour
         _cameraFollowHole = _mainCamera.gameObject.GetComponent<CameraFollowHole>();
     }
 
+    private void Start()
+    {
+        //object pooling for text
+        _floatingTextPool = new List<GameObject>();
+
+        for (int i = 0; i < _floatingTextPoolAmount; i++)
+        {
+            GameObject newObject = Instantiate(_floatingTextObject, transform);
+            newObject.SetActive(false);
+            _floatingTextPool.Add(newObject);
+        }
+    }
+
     private void Update()
     {
         TimeLeft -= Time.deltaTime;
@@ -61,9 +80,31 @@ public class GameManager : MonoBehaviour
             ScoreNeeded *= ScoreNeededMultiplier;
             _playerController.ScaleHoleScale();
             _cameraFollowHole.AddZoomLevel();
-            Debug.Log("Level Up");
         }
 
+        ShowFloatingText(score);
         _scoreText.text = "Score: " + _totalScore.ToString();
+    }
+
+    private void ShowFloatingText(int score)
+    {
+        GameObject newObject = GetFloatingTextPoolObject();
+        FloatingText floatingText = newObject.GetComponent<FloatingText>();
+
+        floatingText.ResetFloatingText();
+        floatingText.SetText("+" + score);
+        newObject.SetActive(true);
+    }
+
+    private GameObject GetFloatingTextPoolObject()
+    {
+        for (int i = 0; i < _floatingTextPool.Count; i++)
+        {
+            if (!_floatingTextPool[i].activeInHierarchy)
+            {
+                return _floatingTextPool[i];
+            }
+        }
+        return null;
     }
 }
