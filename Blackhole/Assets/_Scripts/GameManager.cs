@@ -57,12 +57,11 @@ public class GameManager : MonoBehaviour
 
         if (_scoreCounter >= ScoreNeeded)
         {
-            ScoreNeeded *= ScoreNeededMultiplier;
             _scoreCounter %= ScoreNeeded;
-            Debug.Log(ScoreNeeded);
-            Debug.Log(_scoreCounter);
+            ScoreNeeded *= ScoreNeededMultiplier;
             _playerController.ScaleHoleScale();
             _cameraFollowHole.AddZoomLevel();
+            Debug.Log("Level Up");
         }
 
         _scoreText.text = "Score: " + _totalScore.ToString();

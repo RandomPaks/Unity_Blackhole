@@ -17,10 +17,9 @@ public class DroppableObject : MonoBehaviour
     private void Awake()
     {
         _collider = GetComponent<Collider>();
-    }
 
-    private void Start()
-    {
+        GetComponent<Rigidbody>().Sleep();
+
         Physics.IgnoreCollision(_collider, FloorGenerator.Instance.CutFloorMeshCollider, true);
     }
 

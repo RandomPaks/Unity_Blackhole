@@ -2,13 +2,16 @@ using UnityEngine;
 
 public class CameraFollowHole : MonoBehaviour
 {
+    [Header("General Settings")]
     [Tooltip("Offset of the camera position")]
     public Vector3 CameraOffsetPosition;
+
+    [Header("Zoom Settings")]
     [Tooltip("How zoomed in the camera is initially")]
     public float ZoomLevel = 0;
     [Tooltip("How far the camera zooms in/out")]
     public float ZoomLevelIncrement = -1f;
-    [Tooltip("How fast it takes for the camera to move")]
+    [Tooltip("How fast it takes for the camera to zoom in/out")]
     public float ZoomSpeed = 5.0f;
 
     private float _zoomDesiredLevel;

@@ -402,7 +402,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   FloorCollider2D: {fileID: 1883260301282696645}
-  FloorScale: 50
+  FloorScale: 5
   _cutFloorMeshCollider: {fileID: 1883260301526392212}
   _floorRenderGameObject: {fileID: 1883260301772014714}
   _groundZeroGameObject: {fileID: 1201448111}
