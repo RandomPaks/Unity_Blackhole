@@ -42,7 +42,11 @@ public class FloatingText : MonoBehaviour
 
         //whenever text gets spawned it spawns from the player 
         _startPosition = GameManager.Instance.Player.transform.position;
-        _endPosition = _startPosition + EndOffsetPosition;
+        //randomizes where the text will go
+        _endPosition = _startPosition + new Vector3(
+            Random.Range(-EndOffsetPosition.x, EndOffsetPosition.x), 
+            EndOffsetPosition.y,
+            Random.Range(-EndOffsetPosition.z, EndOffsetPosition.z));
 
         _text.color = _originalColor;
     }

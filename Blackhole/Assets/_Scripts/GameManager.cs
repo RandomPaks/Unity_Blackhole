@@ -89,11 +89,15 @@ public class GameManager : MonoBehaviour
     private void ShowFloatingText(int score)
     {
         GameObject newObject = GetFloatingTextPoolObject();
-        FloatingText floatingText = newObject.GetComponent<FloatingText>();
 
-        floatingText.ResetFloatingText();
-        floatingText.SetText("+" + score);
-        newObject.SetActive(true);
+        if(newObject != null)
+        {
+            FloatingText floatingText = newObject.GetComponent<FloatingText>();
+
+            floatingText.ResetFloatingText();
+            floatingText.SetText("+" + score);
+            newObject.SetActive(true);
+        }
     }
 
     private GameObject GetFloatingTextPoolObject()

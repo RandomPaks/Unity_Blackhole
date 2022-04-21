@@ -97,7 +97,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CameraOffsetPosition: {x: 0, y: 6.928203, z: -4}
-  CameraSpeed: 5
   ZoomLevel: 0
   ZoomLevelIncrement: -1.25
   ZoomSpeed: 2

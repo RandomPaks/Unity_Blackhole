@@ -43,9 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 14f291945e4a7014ca2d8843cdefa785, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  numObjects: 1000
-  _byteObject: {fileID: 7972357874077798609, guid: 1da7809328f4a464f85fb1a46296590c, type: 3}
-  _kilobyteObject: {fileID: 5370285459491499562, guid: ccbd468c0444752469002b8ba1af79e8, type: 3}
-  _megabyteObject: {fileID: 1298951622565800616, guid: e5565fbbbd8cf7f4f97e612cfa178e90, type: 3}
-  _gigabyteObject: {fileID: 1788414790447418939, guid: 82036143bbaf5c94fb258a82f7be3cc3, type: 3}
-  _terabyteObject: {fileID: 5384957648121270855, guid: e72a00c2a19e4f4449871fc7fbb4c3a7, type: 3}
+  NumObjects: 1000
+  ObjectsToSpawn:
+  - {fileID: 7972357874077798609, guid: 1da7809328f4a464f85fb1a46296590c, type: 3}
+  - {fileID: 5370285459491499562, guid: ccbd468c0444752469002b8ba1af79e8, type: 3}
+  - {fileID: 1298951622565800616, guid: e5565fbbbd8cf7f4f97e612cfa178e90, type: 3}
+  - {fileID: 1788414790447418939, guid: 82036143bbaf5c94fb258a82f7be3cc3, type: 3}
+  - {fileID: 5384957648121270855, guid: e72a00c2a19e4f4449871fc7fbb4c3a7, type: 3}
