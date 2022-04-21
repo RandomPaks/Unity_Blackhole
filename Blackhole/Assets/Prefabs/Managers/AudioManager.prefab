@@ -15,7 +15,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1712007700003876364
 Transform:
@@ -46,13 +46,13 @@ MonoBehaviour:
   _audios:
   - name: BGM
     clip: {fileID: 8300000, guid: 8979acdef5754f94e995655e6f886f9e, type: 3}
-    volume: 0.15
+    volume: 0.1
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: Score
     clip: {fileID: 8300000, guid: cefd090b6b6b5ba4196d41708091ba5d, type: 3}
-    volume: 1
+    volume: 0.15
     pitch: 1
     loop: 0
     source: {fileID: 0}

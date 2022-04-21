@@ -103,6 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 192b7b9869d475d468b536c592eeff8a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _audioName: Score
 --- !u!1 &1883260301282696644
 GameObject:
   m_ObjectHideFlags: 0

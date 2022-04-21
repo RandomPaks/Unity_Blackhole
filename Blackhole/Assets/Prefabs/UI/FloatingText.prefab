@@ -109,4 +109,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   DeathTimer: 2.5
-  EndOffsetPosition: {x: 2, y: 2, z: 2}
+  EndOffsetPosition: {x: 3, y: 3, z: 3}

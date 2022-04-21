@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class DroppableObject : MonoBehaviour
+public class Droppable : MonoBehaviour
 {
     [Tooltip("How much score the object gives")]
     public int Score;

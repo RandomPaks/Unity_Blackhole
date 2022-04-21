@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
@@ -14,27 +15,34 @@ public class GameManager : MonoBehaviour
     [Tooltip("How many seconds the player gets to play")]
     public float TimeLeft = 120;
 
+    [Header("Floating Text Object")]
+    [Tooltip("Number of floating texts to pool")]
+    public int FloatingTextPoolAmount = 50;
+    [Tooltip("3D floating text of the game")]
+    [SerializeField] private GameObject _floatingTextObject;
+
     [Header("UI Elements")]
     [Tooltip("Score text of the game")]
     [SerializeField] private Text _scoreText;
     [Tooltip("Score text of the game")]
     [SerializeField] private Text _timeText;
-    [Tooltip("3D floating text of the game")]
-    [SerializeField] private GameObject _floatingTextObject;
-    [Tooltip("Number of floating texts to pool")]
-    [SerializeField] private int _floatingTextPoolAmount;
+    [Tooltip("End screen of the game")]
+    [SerializeField] private GameObject _endScreenObject;
+    [Tooltip("Total Score text of the end screen")]
+    [SerializeField] private Text _totalScoreText;
 
     private int _scoreCounter;
     private int _totalScore;
     private List<GameObject> _floatingTextPool;
+    private bool _isGameFinished;
 
     private PlayerController _playerController;
     private Camera _mainCamera;
-    private CameraFollowHole _cameraFollowHole;
+    private CameraController _cameraController;
 
     public PlayerController Player => _playerController;
     public Camera MainCamera => _mainCamera;
-
+    public bool IsGameFinished => _isGameFinished;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -45,7 +53,7 @@ public class GameManager : MonoBehaviour
         _playerController = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerController>();
         _mainCamera = GameObject.FindGameObjectWithTag("MainCamera").GetComponent<Camera>();
 
-        _cameraFollowHole = _mainCamera.gameObject.GetComponent<CameraFollowHole>();
+        _cameraController = _mainCamera.gameObject.GetComponent<CameraController>();
     }
 
     private void Start()
@@ -53,7 +61,7 @@ public class GameManager : MonoBehaviour
         //object pooling for text
         _floatingTextPool = new List<GameObject>();
 
-        for (int i = 0; i < _floatingTextPoolAmount; i++)
+        for (int i = 0; i < FloatingTextPoolAmount; i++)
         {
             GameObject newObject = Instantiate(_floatingTextObject, transform);
             newObject.SetActive(false);
@@ -63,27 +71,42 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        TimeLeft -= Time.deltaTime;
+        if (TimeLeft > 0)
+        {
+            TimeLeft -= Time.deltaTime;
 
-        TimeSpan time = TimeSpan.FromSeconds(TimeLeft);
-        _timeText.text = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
+            TimeSpan time = TimeSpan.FromSeconds(TimeLeft);
+            _timeText.text = string.Format("{0:D2}:{1:D2}", time.Minutes, time.Seconds);
+        }
+        else
+        {
+            //check if the game has finished to run EndGame() once
+            if (!_isGameFinished)
+            {
+                _isGameFinished = true;
+                EndGame();
+            } 
+        }
     }
 
     public void AddScore(int score)
     {
-        _totalScore += score;
-        _scoreCounter += score;
-
-        if (_scoreCounter >= ScoreNeeded)
+        if (!_isGameFinished)
         {
-            _scoreCounter %= ScoreNeeded;
-            ScoreNeeded *= ScoreNeededMultiplier;
-            _playerController.ScaleHoleScale();
-            _cameraFollowHole.AddZoomLevel();
-        }
+            _totalScore += score;
+            _scoreCounter += score;
 
-        ShowFloatingText(score);
-        _scoreText.text = "Score: " + _totalScore.ToString();
+            if (_scoreCounter >= ScoreNeeded)
+            {
+                _scoreCounter %= ScoreNeeded;
+                ScoreNeeded *= ScoreNeededMultiplier;
+                _playerController.ScaleHoleScale();
+                _cameraController.AddZoomLevel();
+            }
+
+            ShowFloatingText(score);
+            _scoreText.text = "Score: " + _totalScore.ToString();
+        }
     }
 
     private void ShowFloatingText(int score)
@@ -111,4 +134,18 @@ public class GameManager : MonoBehaviour
         }
         return null;
     }
+
+    private void EndGame()
+    {
+        _scoreText.gameObject.SetActive(false);
+        _timeText.gameObject.SetActive(false);
+
+        _endScreenObject.SetActive(true);
+        _totalScoreText.text = _scoreText.text;
+        _playerController.GetComponent<PlayerController>().enabled = false;
+    }
+
+    public void OnButtonPlay() => SceneManager.LoadScene("GameScene");
+
+    public void OnButtonExit() => Application.Quit();
 }

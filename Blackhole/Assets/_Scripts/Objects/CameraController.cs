@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CameraFollowHole : MonoBehaviour
+public class CameraController : MonoBehaviour
 {
     [Header("General Settings")]
     [Tooltip("Offset of the camera position")]
@@ -27,13 +27,16 @@ public class CameraFollowHole : MonoBehaviour
 
     private void LateUpdate()
     {
+        UpdateZoomLevel();
         UpdatePosition();
+    }
+    private void UpdateZoomLevel()
+    {
+        ZoomLevel = Mathf.MoveTowards(ZoomLevel, _zoomDesiredLevel, ZoomSpeed * Time.deltaTime);
     }
 
     private void UpdatePosition()
     {
-        ZoomLevel = Mathf.MoveTowards(ZoomLevel, _zoomDesiredLevel, ZoomSpeed * Time.deltaTime);
-
         transform.position = _player.transform.position + CameraOffsetPosition + (transform.forward * ZoomLevel);
     }
 

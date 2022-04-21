@@ -21,6 +21,7 @@ namespace Sound
                 Destroy(gameObject);
             else
                 Instance = this;
+
             DontDestroyOnLoad(gameObject);
 
             foreach (Audio a in _audios)
@@ -49,6 +50,18 @@ namespace Sound
             }
 
             a.source.Play();
+        }
+
+        public void PlayOneShot(string name)
+        {
+            Audio a = Array.Find(_audios, audio => audio.name == name);
+            if (a == null)
+            {
+                Debug.LogWarning("Audio: " + name + " not found!");
+                return;
+            }
+
+            a.source.PlayOneShot(a.clip);
         }
 
         public void Stop(string name)
