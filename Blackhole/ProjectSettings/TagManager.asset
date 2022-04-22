@@ -8,15 +8,15 @@ TagManager:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Player
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
-  - 
+  - Ground Zero
+  - Wall
+  - Floor
+  - Droppable
+  - Death Floor
+  - Player Trigger
   - 
   - 
   - 
