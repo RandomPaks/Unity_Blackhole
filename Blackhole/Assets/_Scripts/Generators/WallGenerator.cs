@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class WallGenerator : MonoBehaviour
 {
-    [Tooltip("The wall gameobject used to bound the player within the environment")]
+    [Tooltip("The prefab wall gameobject used to bound the player within the environment")]
     [SerializeField] private GameObject _wallGameObject;
 
     private void Start()

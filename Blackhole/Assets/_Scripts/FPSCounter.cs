@@ -10,14 +10,8 @@ public class FPSCounter : MonoBehaviour
 
     private float _timeUntilNextUpdate;
 
-    private void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
-
     private void Start()
     {
-        FPSText.text = "0";
         _timeUntilNextUpdate = UpdateInterval;
     }
 

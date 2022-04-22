@@ -18,7 +18,7 @@ public class GameManager : MonoBehaviour
     [Header("Floating Text Object")]
     [Tooltip("Number of floating texts to pool")]
     public int FloatingTextPoolAmount = 50;
-    [Tooltip("3D floating text of the game")]
+    [Tooltip("Prefab of the 3D floating text")]
     [SerializeField] private GameObject _floatingTextObject;
 
     [Header("UI Elements")]
@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     public PlayerController Player => _playerController;
     public Camera MainCamera => _mainCamera;
     public bool IsGameFinished => _isGameFinished;
+    public int TotalScore => _totalScore;
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -141,7 +142,7 @@ public class GameManager : MonoBehaviour
         _timeText.gameObject.SetActive(false);
 
         _endScreenObject.SetActive(true);
-        _totalScoreText.text = _scoreText.text;
+        _totalScoreText.text = "Total " + _scoreText.text;
         _playerController.GetComponent<PlayerController>().enabled = false;
     }
 
